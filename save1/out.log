@@ -1,0 +1,104 @@
+2021-07-08 19:14:11,394 - INFO - allennlp.common.params - random_seed = 13370
+2021-07-08 19:14:11,394 - INFO - allennlp.common.params - numpy_seed = 1337
+2021-07-08 19:14:11,394 - INFO - allennlp.common.params - pytorch_seed = 133
+2021-07-08 19:14:11,412 - INFO - allennlp.common.checks - Pytorch version: 1.7.0
+2021-07-08 19:14:11,412 - INFO - allennlp.common.params - type = default
+2021-07-08 19:14:11,413 - INFO - allennlp.common.params - dataset_reader.type = data_reader
+2021-07-08 19:14:11,413 - INFO - allennlp.common.params - dataset_reader.max_instances = None
+2021-07-08 19:14:11,413 - INFO - allennlp.common.params - dataset_reader.manual_distributed_sharding = False
+2021-07-08 19:14:11,413 - INFO - allennlp.common.params - dataset_reader.manual_multiprocess_sharding = False
+2021-07-08 19:14:11,413 - INFO - allennlp.common.params - dataset_reader.tokenizer.type = pretrained_transformer
+2021-07-08 19:14:11,414 - INFO - allennlp.common.params - dataset_reader.tokenizer.model_name = hfl/chinese-bert-wwm
+2021-07-08 19:14:11,414 - INFO - allennlp.common.params - dataset_reader.tokenizer.add_special_tokens = True
+2021-07-08 19:14:11,414 - INFO - allennlp.common.params - dataset_reader.tokenizer.max_length = None
+2021-07-08 19:14:11,414 - INFO - allennlp.common.params - dataset_reader.tokenizer.tokenizer_kwargs = None
+2021-07-08 19:14:28,609 - INFO - allennlp.common.params - dataset_reader.token_indexers.bert.type = pretrained_transformer
+2021-07-08 19:14:28,610 - INFO - allennlp.common.params - dataset_reader.token_indexers.bert.token_min_padding_length = 0
+2021-07-08 19:14:28,610 - INFO - allennlp.common.params - dataset_reader.token_indexers.bert.model_name = hfl/chinese-bert-wwm
+2021-07-08 19:14:28,610 - INFO - allennlp.common.params - dataset_reader.token_indexers.bert.namespace = tags
+2021-07-08 19:14:28,610 - INFO - allennlp.common.params - dataset_reader.token_indexers.bert.max_length = None
+2021-07-08 19:14:28,611 - INFO - allennlp.common.params - dataset_reader.token_indexers.bert.tokenizer_kwargs = None
+2021-07-08 19:14:28,612 - INFO - allennlp.common.params - dataset_reader.max_tokens = 512
+2021-07-08 19:14:28,612 - INFO - allennlp.common.params - dataset_reader.text_num = 500
+2021-07-08 19:14:28,612 - INFO - allennlp.common.params - train_data_path = data/train.txt
+2021-07-08 19:14:28,613 - INFO - allennlp.common.params - vocabulary = <allennlp.common.lazy.Lazy object at 0x7f9a1204beb8>
+2021-07-08 19:14:28,613 - INFO - allennlp.common.params - datasets_for_vocab_creation = None
+2021-07-08 19:14:28,614 - INFO - allennlp.common.params - validation_dataset_reader = None
+2021-07-08 19:14:28,614 - INFO - allennlp.common.params - validation_data_path = data/dev.txt
+2021-07-08 19:14:28,614 - INFO - allennlp.common.params - validation_data_loader = None
+2021-07-08 19:14:28,614 - INFO - allennlp.common.params - test_data_path = None
+2021-07-08 19:14:28,614 - INFO - allennlp.common.params - evaluate_on_test = False
+2021-07-08 19:14:28,614 - INFO - allennlp.common.params - batch_weight_key = 
+2021-07-08 19:14:28,615 - INFO - allennlp.common.params - data_loader.type = multiprocess
+2021-07-08 19:14:28,615 - INFO - allennlp.common.params - data_loader.batch_size = 16
+2021-07-08 19:14:28,616 - INFO - allennlp.common.params - data_loader.drop_last = False
+2021-07-08 19:14:28,616 - INFO - allennlp.common.params - data_loader.shuffle = True
+2021-07-08 19:14:28,616 - INFO - allennlp.common.params - data_loader.batch_sampler = None
+2021-07-08 19:14:28,616 - INFO - allennlp.common.params - data_loader.batches_per_epoch = None
+2021-07-08 19:14:28,616 - INFO - allennlp.common.params - data_loader.num_workers = 8
+2021-07-08 19:14:28,616 - INFO - allennlp.common.params - data_loader.max_instances_in_memory = None
+2021-07-08 19:14:28,616 - INFO - allennlp.common.params - data_loader.start_method = fork
+2021-07-08 19:14:28,617 - INFO - allennlp.common.params - data_loader.cuda_device = None
+2021-07-08 19:14:28,617 - INFO - allennlp.common.params - data_loader.quiet = False
+2021-07-08 19:14:28,632 - INFO - tqdm - loading instances: 0it [00:00, ?it/s]
+2021-07-08 19:14:28,764 - INFO - allennlp.common.params - data_loader.type = multiprocess
+2021-07-08 19:14:28,765 - INFO - allennlp.common.params - data_loader.batch_size = 16
+2021-07-08 19:14:28,765 - INFO - allennlp.common.params - data_loader.drop_last = False
+2021-07-08 19:14:28,765 - INFO - allennlp.common.params - data_loader.shuffle = True
+2021-07-08 19:14:28,765 - INFO - allennlp.common.params - data_loader.batch_sampler = None
+2021-07-08 19:14:28,765 - INFO - allennlp.common.params - data_loader.batches_per_epoch = None
+2021-07-08 19:14:28,765 - INFO - allennlp.common.params - data_loader.num_workers = 8
+2021-07-08 19:14:28,765 - INFO - allennlp.common.params - data_loader.max_instances_in_memory = None
+2021-07-08 19:14:28,765 - INFO - allennlp.common.params - data_loader.start_method = fork
+2021-07-08 19:14:28,765 - INFO - allennlp.common.params - data_loader.cuda_device = None
+2021-07-08 19:14:28,766 - INFO - allennlp.common.params - data_loader.quiet = False
+2021-07-08 19:14:28,782 - INFO - tqdm - loading instances: 0it [00:00, ?it/s]
+2021-07-08 19:14:28,908 - INFO - allennlp.common.params - type = from_instances
+2021-07-08 19:14:28,909 - INFO - allennlp.common.params - min_count = None
+2021-07-08 19:14:28,909 - INFO - allennlp.common.params - max_vocab_size = None
+2021-07-08 19:14:28,909 - INFO - allennlp.common.params - non_padded_namespaces = ('*tags', '*labels')
+2021-07-08 19:14:28,909 - INFO - allennlp.common.params - pretrained_files = None
+2021-07-08 19:14:28,909 - INFO - allennlp.common.params - only_include_pretrained_words = False
+2021-07-08 19:14:28,909 - INFO - allennlp.common.params - tokens_to_add = None
+2021-07-08 19:14:28,909 - INFO - allennlp.common.params - min_pretrained_embeddings = None
+2021-07-08 19:14:28,909 - INFO - allennlp.common.params - padding_token = @@PADDING@@
+2021-07-08 19:14:28,909 - INFO - allennlp.common.params - oov_token = @@UNKNOWN@@
+2021-07-08 19:14:28,909 - INFO - allennlp.data.vocabulary - Fitting token dictionary from dataset.
+2021-07-08 19:14:28,909 - INFO - tqdm - building vocab: 0it [00:00, ?it/s]
+2021-07-08 19:14:28,916 - INFO - allennlp.common.params - model.type = tagger
+2021-07-08 19:14:28,916 - INFO - allennlp.common.params - model.embedder.token_embedders.bert.model_name = hfl/chinese-bert-wwm
+2021-07-08 19:14:28,916 - INFO - allennlp.common.params - model.embedder.token_embedders.bert.type = pretrained_transformer
+2021-07-08 19:14:28,916 - INFO - allennlp.common.params - model.threshold = 0.9
+2021-07-08 19:14:28,916 - CRITICAL - root - Uncaught exception
+Traceback (most recent call last):
+  File "/home/hadoop/anaconda3/envs/allennlp/bin/allennlp", line 8, in <module>
+    sys.exit(run())
+  File "/home/hadoop/anaconda3/envs/allennlp/lib/python3.6/site-packages/allennlp/__main__.py", line 34, in run
+    main(prog="allennlp")
+  File "/home/hadoop/anaconda3/envs/allennlp/lib/python3.6/site-packages/allennlp/commands/__init__.py", line 119, in main
+    args.func(args)
+  File "/home/hadoop/anaconda3/envs/allennlp/lib/python3.6/site-packages/allennlp/commands/train.py", line 119, in train_model_from_args
+    file_friendly_logging=args.file_friendly_logging,
+  File "/home/hadoop/anaconda3/envs/allennlp/lib/python3.6/site-packages/allennlp/commands/train.py", line 178, in train_model_from_file
+    file_friendly_logging=file_friendly_logging,
+  File "/home/hadoop/anaconda3/envs/allennlp/lib/python3.6/site-packages/allennlp/commands/train.py", line 242, in train_model
+    file_friendly_logging=file_friendly_logging,
+  File "/home/hadoop/anaconda3/envs/allennlp/lib/python3.6/site-packages/allennlp/commands/train.py", line 456, in _train_worker
+    local_rank=process_rank,
+  File "/home/hadoop/anaconda3/envs/allennlp/lib/python3.6/site-packages/allennlp/common/from_params.py", line 593, in from_params
+    **extras,
+  File "/home/hadoop/anaconda3/envs/allennlp/lib/python3.6/site-packages/allennlp/common/from_params.py", line 623, in from_params
+    return constructor_to_call(**kwargs)  # type: ignore
+  File "/home/hadoop/anaconda3/envs/allennlp/lib/python3.6/site-packages/allennlp/commands/train.py", line 712, in from_partial_objects
+    model_ = model.construct(vocab=vocabulary_, serialization_dir=serialization_dir)
+  File "/home/hadoop/anaconda3/envs/allennlp/lib/python3.6/site-packages/allennlp/common/lazy.py", line 80, in construct
+    return self.constructor(**contructor_kwargs)
+  File "/home/hadoop/anaconda3/envs/allennlp/lib/python3.6/site-packages/allennlp/common/lazy.py", line 66, in constructor_to_use
+    **kwargs,
+  File "/home/hadoop/anaconda3/envs/allennlp/lib/python3.6/site-packages/allennlp/common/from_params.py", line 593, in from_params
+    **extras,
+  File "/home/hadoop/anaconda3/envs/allennlp/lib/python3.6/site-packages/allennlp/common/from_params.py", line 623, in from_params
+    return constructor_to_call(**kwargs)  # type: ignore
+  File "/home/hadoop/project/zyh/punc/puncR/model/model.py", line 51, in __init__
+    self.classifier = torch.nn.Linear(self.embedder.get_output_dim(), 1)
+AttributeError: 'dict' object has no attribute 'get_output_dim'

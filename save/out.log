@@ -1,0 +1,14 @@
+2021-07-08 19:13:43,429 - INFO - allennlp.common.params - random_seed = 13370
+2021-07-08 19:13:43,429 - INFO - allennlp.common.params - numpy_seed = 1337
+2021-07-08 19:13:43,429 - INFO - allennlp.common.params - pytorch_seed = 133
+2021-07-08 19:13:43,447 - INFO - allennlp.common.checks - Pytorch version: 1.7.0
+2021-07-08 19:13:43,447 - INFO - allennlp.common.params - type = default
+2021-07-08 19:13:43,448 - INFO - allennlp.common.params - dataset_reader.type = data_reader
+2021-07-08 19:13:43,448 - INFO - allennlp.common.params - dataset_reader.max_instances = None
+2021-07-08 19:13:43,448 - INFO - allennlp.common.params - dataset_reader.manual_distributed_sharding = False
+2021-07-08 19:13:43,448 - INFO - allennlp.common.params - dataset_reader.manual_multiprocess_sharding = False
+2021-07-08 19:13:43,448 - INFO - allennlp.common.params - dataset_reader.tokenizer.type = pretrained_transformer
+2021-07-08 19:13:43,448 - INFO - allennlp.common.params - dataset_reader.tokenizer.model_name = hfl/chinese-bert-wwm
+2021-07-08 19:13:43,449 - INFO - allennlp.common.params - dataset_reader.tokenizer.add_special_tokens = True
+2021-07-08 19:13:43,449 - INFO - allennlp.common.params - dataset_reader.tokenizer.max_length = None
+2021-07-08 19:13:43,449 - INFO - allennlp.common.params - dataset_reader.tokenizer.tokenizer_kwargs = None

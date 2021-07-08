@@ -22,12 +22,12 @@ local bert_model = 'hfl/chinese-bert-wwm';
         "type": "tagger",
         "embedder": {
             "token_embedders": {
-                "tokens": {
+                "bert": {
                     "type": "pretrained_transformer",
                     "model_name": bert_model
                 }
             }
-        }
+        },
     },
     "data_loader": {
         "batch_size": 16,
@@ -42,7 +42,4 @@ local bert_model = 'hfl/chinese-bert-wwm';
         "num_epochs": 20,
         "patience": 5,
     },
-    "distributed": {
-        "cuda_devices": [0, 1]
-    }
 }

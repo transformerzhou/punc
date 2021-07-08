@@ -12,8 +12,8 @@ from allennlp.data import (
     TextFieldTensors,
 )
 from allennlp.models import Model
-from allennlp.modules import TextFieldEmbedder, Seq2VecEncoder, Seq2SeqEncoder
-from allennlp.training.metrics import CategoricalAccuracy, SequenceAccuracy, Metric
+from allennlp.modules import TextFieldEmbedder
+from allennlp.training.metrics import  Metric
 
 
 
@@ -44,13 +44,12 @@ class F1(Metric):
 @Model.register("tagger")
 class PuncRestoreLabeler(Model):
     def __init__(
-            self, vocab, embedder, threshold=0.9
+            self, vocab, embedder:TextFieldEmbedder, threshold=0.9
     ):
         super().__init__(vocab)
         self.embedder = embedder
         self.threshold = threshold
-        num_labels = vocab.get_vocab_size("labels")
-        self.classifier = torch.nn.Linear(768, 1)
+        self.classifier = torch.nn.Linear(self.embedder.get_output_dim(), 1)
         self.f1 = F1()
 
     def forward(
@@ -58,8 +57,10 @@ class PuncRestoreLabeler(Model):
             text: TextFieldTensors, label: torch.Tensor = None
     ) -> Dict[str, torch.Tensor]:
 #         print(text)
-        mask = text['tokens']['mask']
+        print(text)
+        mask = text['bert']['mask']
         # Shape: (batch_size, num_tokens, embedding_dim)
+        # print(self.embedder)
         encoded_text = self.embedder(text)
         logits1 = self.classifier(encoded_text)
 
@@ -74,7 +75,6 @@ class PuncRestoreLabeler(Model):
             output["loss"] = (torch.nn.functional.binary_cross_entropy_with_logits(logits2, label.float(),
                                                                                    reduction='none') * mask).sum() / (
                                          mask.sum() + 1e-9)
-        #             output["loss"] = (torch.nn.functional.binary_cross_entropy_with_logits(logits2, label))
         return output
 
     def get_metrics(self, reset: bool = False) -> Dict[str, float]:
