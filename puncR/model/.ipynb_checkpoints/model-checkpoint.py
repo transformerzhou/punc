@@ -12,8 +12,32 @@ from allennlp.data import (
     TextFieldTensors,
 )
 from allennlp.models import Model
-from allennlp.modules import TextFieldEmbedder, Seq2VecEncoder, Seq2SeqEncoder
-from allennlp.training.metrics import CategoricalAccuracy, SequenceAccuracy, Metric
+from allennlp.modules import TextFieldEmbedder
+from allennlp.training.metrics import  Metric
+
+import sys
+import torch
+from torch.utils.data import dataloader
+from torch.multiprocessing import reductions
+from multiprocessing.reduction import ForkingPickler
+
+default_collate_func = dataloader.default_collate
+
+
+def default_collate_override(batch):
+    dataloader._use_shared_memory = False
+    return default_collate_func(batch)
+
+
+setattr(dataloader, 'default_collate', default_collate_override)
+
+for t in torch._storage_classes:
+    if sys.version_info[0] == 2:
+        if t in ForkingPickler.dispatch:
+            del ForkingPickler.dispatch[t]
+    else:
+        if t in ForkingPickler._extra_reducers:
+            del ForkingPickler._extra_reducers[t]
 
 
 
@@ -44,37 +68,40 @@ class F1(Metric):
 @Model.register("tagger")
 class PuncRestoreLabeler(Model):
     def __init__(
-            self, vocab, embedder, threshold=0.9
+            self, vocab, embedder:TextFieldEmbedder, threshold=0.9
     ):
         super().__init__(vocab)
         self.embedder = embedder
         self.threshold = threshold
-        num_labels = vocab.get_vocab_size("labels")
-        self.classifier = torch.nn.Linear(768, 1)
+        self.classifier = torch.nn.Linear(self.embedder.get_output_dim(), 1)
         self.f1 = F1()
 
     def forward(
             self,
-            text: TextFieldTensors, label: torch.Tensor = None
+            text: TextFieldTensors, label: torch.Tensor = None, cut: torch.Tensor = None,
     ) -> Dict[str, torch.Tensor]:
 #         print(text)
-        mask = text['tokens']['mask']
+#         print(text)
+        mask = text['bert']['mask']
         # Shape: (batch_size, num_tokens, embedding_dim)
+        # print(self.embedder)
         encoded_text = self.embedder(text)
         logits1 = self.classifier(encoded_text)
-
+        
         logits2 = torch.squeeze(logits1, dim=-1)
         probs = torch.sigmoid(logits2)
-        th = 0.95
-        probs[torch.where(probs > th)] = 1
-        probs[torch.where(probs <= th)] = 0
+        th = 0.7
+        probs[torch.where(probs>th)] = 1
+        probs[torch.where(probs<=th)] = 0
+        probs = probs*cut
+        
         output = {"probs": probs}
+        output['token'] = text['tokens']['token_ids']
+        output['cut'] = cut
         if label is not None:
-            self.f1(probs, label)
-            output["loss"] = (torch.nn.functional.binary_cross_entropy_with_logits(logits2, label.float(),
-                                                                                   reduction='none') * mask).sum() / (
-                                         mask.sum() + 1e-9)
-        #             output["loss"] = (torch.nn.functional.binary_cross_entropy_with_logits(logits2, label))
+            self.f1(probs[:, 1:-1], label[:, 1:-1])
+            output["loss"] = (torch.nn.functional.binary_cross_entropy_with_logits(logits2, label.float(), reduction='none')*cut).sum()/(cut.sum()+1e-9)
+#             output["loss"] = (torch.nn.functional.binary_cross_entropy_with_logits(logits2, label))
         return output
 
     def get_metrics(self, reset: bool = False) -> Dict[str, float]:
