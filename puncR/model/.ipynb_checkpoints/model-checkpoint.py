@@ -56,7 +56,6 @@ class F1(Metric):
         precision = self.correct_num / self.predict_num
         recall = self.correct_num / self.gold_num
         f1_score = 2 * precision * recall / (precision + recall)
-
         if reset:
             self.reset()
         return {'pre':precision, 'rec':recall, 'f1':f1_score}
@@ -103,3 +102,5 @@ class PuncRestoreLabeler(Model):
             output["loss"] = (torch.nn.functional.binary_cross_entropy_with_logits(logits2, label.float(), reduction='none')*mask).sum()/(mask.sum()+1e-9)
 
         return output
+    def get_metrics(self, reset: bool = False) -> Dict[str, float]:
+        return self.f1.get_metric(reset)
