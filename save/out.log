@@ -1,10 +1,63 @@
-2021-07-11 12:54:05,292 - INFO - allennlp.common.params - datasets_for_vocab_creation = None
-2021-07-11 12:54:05,293 - INFO - allennlp.common.params - dataset_reader.type = data_reader
-2021-07-11 12:54:05,293 - INFO - allennlp.common.params - dataset_reader.max_instances = None
-2021-07-11 12:54:05,293 - INFO - allennlp.common.params - dataset_reader.manual_distributed_sharding = False
-2021-07-11 12:54:05,293 - INFO - allennlp.common.params - dataset_reader.manual_multiprocess_sharding = False
-2021-07-11 12:54:05,294 - INFO - allennlp.common.params - dataset_reader.tokenizer.type = pretrained_transformer
-2021-07-11 12:54:05,294 - INFO - allennlp.common.params - dataset_reader.tokenizer.model_name = hfl/chinese-roberta-wwm-ext-large
-2021-07-11 12:54:05,294 - INFO - allennlp.common.params - dataset_reader.tokenizer.add_special_tokens = True
-2021-07-11 12:54:05,294 - INFO - allennlp.common.params - dataset_reader.tokenizer.max_length = None
-2021-07-11 12:54:05,294 - INFO - allennlp.common.params - dataset_reader.tokenizer.tokenizer_kwargs = None
+2021-07-11 13:53:33,826 - INFO - allennlp.common.params - datasets_for_vocab_creation = None
+2021-07-11 13:53:33,827 - INFO - allennlp.common.params - dataset_reader.type = data_reader
+2021-07-11 13:53:33,827 - INFO - allennlp.common.params - dataset_reader.max_instances = None
+2021-07-11 13:53:33,827 - INFO - allennlp.common.params - dataset_reader.manual_distributed_sharding = False
+2021-07-11 13:53:33,827 - INFO - allennlp.common.params - dataset_reader.manual_multiprocess_sharding = False
+2021-07-11 13:53:33,827 - INFO - allennlp.common.params - dataset_reader.tokenizer.type = pretrained_transformer
+2021-07-11 13:53:33,828 - INFO - allennlp.common.params - dataset_reader.tokenizer.model_name = hfl/chinese-roberta-wwm-ext-large
+2021-07-11 13:53:33,828 - INFO - allennlp.common.params - dataset_reader.tokenizer.add_special_tokens = True
+2021-07-11 13:53:33,828 - INFO - allennlp.common.params - dataset_reader.tokenizer.max_length = None
+2021-07-11 13:53:33,828 - INFO - allennlp.common.params - dataset_reader.tokenizer.tokenizer_kwargs = None
+2021-07-11 13:53:41,819 - INFO - allennlp.common.params - dataset_reader.token_indexers.bert.type = pretrained_transformer
+2021-07-11 13:53:41,822 - INFO - allennlp.common.params - dataset_reader.token_indexers.bert.token_min_padding_length = 0
+2021-07-11 13:53:41,822 - INFO - allennlp.common.params - dataset_reader.token_indexers.bert.model_name = hfl/chinese-roberta-wwm-ext-large
+2021-07-11 13:53:41,822 - INFO - allennlp.common.params - dataset_reader.token_indexers.bert.namespace = tags
+2021-07-11 13:53:41,822 - INFO - allennlp.common.params - dataset_reader.token_indexers.bert.max_length = None
+2021-07-11 13:53:41,822 - INFO - allennlp.common.params - dataset_reader.token_indexers.bert.tokenizer_kwargs = None
+2021-07-11 13:53:41,823 - INFO - allennlp.common.params - dataset_reader.max_tokens = 512
+2021-07-11 13:53:41,823 - INFO - allennlp.common.params - dataset_reader.text_num = 500
+2021-07-11 13:53:41,823 - INFO - allennlp.common.params - train_data_path = data/BCUT/train.txt
+2021-07-11 13:53:41,823 - INFO - allennlp.training.util - Reading training data from data/BCUT/train.txt
+2021-07-11 13:53:41,824 - INFO - allennlp.common.params - data_loader.type = multiprocess
+2021-07-11 13:53:41,824 - INFO - allennlp.common.params - data_loader.batch_size = 8
+2021-07-11 13:53:41,824 - INFO - allennlp.common.params - data_loader.drop_last = False
+2021-07-11 13:53:41,824 - INFO - allennlp.common.params - data_loader.shuffle = True
+2021-07-11 13:53:41,824 - INFO - allennlp.common.params - data_loader.batch_sampler = None
+2021-07-11 13:53:41,824 - INFO - allennlp.common.params - data_loader.batches_per_epoch = None
+2021-07-11 13:53:41,824 - INFO - allennlp.common.params - data_loader.num_workers = 8
+2021-07-11 13:53:41,824 - INFO - allennlp.common.params - data_loader.max_instances_in_memory = None
+2021-07-11 13:53:41,825 - INFO - allennlp.common.params - data_loader.start_method = fork
+2021-07-11 13:53:41,825 - INFO - allennlp.common.params - data_loader.cuda_device = None
+2021-07-11 13:53:41,825 - INFO - allennlp.common.params - data_loader.quiet = False
+2021-07-11 13:53:41,868 - INFO - tqdm - loading instances: 0it [00:00, ?it/s]
+2021-07-11 13:53:42,812 - INFO - allennlp.common.params - validation_dataset_reader = None
+2021-07-11 13:53:42,812 - INFO - allennlp.common.params - validation_data_loader = data_loader.Params({'batch_size': 8, 'num_workers': 8, 'shuffle': True})
+2021-07-11 13:53:42,812 - INFO - allennlp.common.params - validation_data_path = data/BCUT/test.txt
+2021-07-11 13:53:42,812 - INFO - allennlp.training.util - Reading validation data from data/BCUT/test.txt
+2021-07-11 13:53:42,812 - INFO - allennlp.common.params - data_loader.type = multiprocess
+2021-07-11 13:53:42,813 - INFO - allennlp.common.params - data_loader.batch_size = 8
+2021-07-11 13:53:42,813 - INFO - allennlp.common.params - data_loader.drop_last = False
+2021-07-11 13:53:42,813 - INFO - allennlp.common.params - data_loader.shuffle = True
+2021-07-11 13:53:42,813 - INFO - allennlp.common.params - data_loader.batch_sampler = None
+2021-07-11 13:53:42,813 - INFO - allennlp.common.params - data_loader.batches_per_epoch = None
+2021-07-11 13:53:42,813 - INFO - allennlp.common.params - data_loader.num_workers = 8
+2021-07-11 13:53:42,813 - INFO - allennlp.common.params - data_loader.max_instances_in_memory = None
+2021-07-11 13:53:42,813 - INFO - allennlp.common.params - data_loader.start_method = fork
+2021-07-11 13:53:42,814 - INFO - allennlp.common.params - data_loader.cuda_device = None
+2021-07-11 13:53:42,814 - INFO - allennlp.common.params - data_loader.quiet = False
+2021-07-11 13:53:42,862 - INFO - tqdm - loading instances: 0it [00:00, ?it/s]
+2021-07-11 13:53:43,195 - INFO - allennlp.common.params - vocabulary.type = from_instances
+2021-07-11 13:53:43,196 - INFO - allennlp.common.params - vocabulary.min_count = None
+2021-07-11 13:53:43,196 - INFO - allennlp.common.params - vocabulary.max_vocab_size = None
+2021-07-11 13:53:43,196 - INFO - allennlp.common.params - vocabulary.non_padded_namespaces = ('*tags', '*labels')
+2021-07-11 13:53:43,196 - INFO - allennlp.common.params - vocabulary.pretrained_files = None
+2021-07-11 13:53:43,197 - INFO - allennlp.common.params - vocabulary.only_include_pretrained_words = False
+2021-07-11 13:53:43,197 - INFO - allennlp.common.params - vocabulary.tokens_to_add = None
+2021-07-11 13:53:43,197 - INFO - allennlp.common.params - vocabulary.min_pretrained_embeddings = None
+2021-07-11 13:53:43,197 - INFO - allennlp.common.params - vocabulary.padding_token = @@PADDING@@
+2021-07-11 13:53:43,197 - INFO - allennlp.common.params - vocabulary.oov_token = @@UNKNOWN@@
+2021-07-11 13:53:43,197 - INFO - allennlp.data.vocabulary - Fitting token dictionary from dataset.
+2021-07-11 13:53:43,198 - INFO - tqdm - building vocab: 0it [00:00, ?it/s]
+2021-07-11 13:53:43,220 - INFO - allennlp.training.util - writing the vocabulary to save/vocabulary.
+2021-07-11 13:53:43,262 - INFO - allennlp.training.util - done creating vocab
+2021-07-11 13:53:43,274 - INFO - root - Switching to distributed training mode since multiple GPUs are configured | Primary is at: 127.0.0.1:40715 | Rank of this node: 0 | Number of workers in this node: 2 | Number of nodes: 1 | World size: 2

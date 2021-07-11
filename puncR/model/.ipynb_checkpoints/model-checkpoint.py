@@ -46,10 +46,11 @@ class F1(Metric):
         self.correct_num, self.predict_num, self.gold_num = 1e-10, 1e-10, 1e-10
 
     def __call__(self, probs, label):
-        #         print(probs1.shape, label1.shape)
-        self.correct_num += torch.sum((probs == 1) & (label == 1)).cpu().numpy()
-        self.predict_num += torch.sum(probs == 1).cpu().numpy()
-        self.gold_num += torch.sum(label == 1).cpu().numpy()
+        
+        self.correct_num += torch.sum((probs==1)&(label==1)).cpu().numpy()
+        self.predict_num += torch.sum(probs==1).cpu().numpy()
+        self.gold_num += torch.sum(label==1).cpu().numpy()
+        
 
     def get_metric(self, reset: bool = False) -> Tuple[float, float, float]:
         precision = self.correct_num / self.predict_num
@@ -58,8 +59,8 @@ class F1(Metric):
 
         if reset:
             self.reset()
-        return {'pre': precision, 'rec': recall, 'f1': f1_score}
-
+        return {'pre':precision, 'rec':recall, 'f1':f1_score}
+    
     @overrides
     def reset(self):
         print("correct_num：{}，gold_num：{}， predict_num：{}".format(self.correct_num, self.gold_num, self.predict_num))
@@ -72,7 +73,7 @@ class PuncRestoreLabeler(Model):
     ):
         super().__init__(vocab)
         self.embedder = embedder
-        self.threshold = threshold
+        self.th = threshold
         self.classifier = torch.nn.Linear(self.embedder.get_output_dim(), 1)
         self.f1 = F1()
 
@@ -80,8 +81,6 @@ class PuncRestoreLabeler(Model):
             self,
             text: TextFieldTensors, label: torch.Tensor = None, cut: torch.Tensor = None,
     ) -> Dict[str, torch.Tensor]:
-#         print(text)
-#         print(text)
         mask = text['bert']['mask']
         # Shape: (batch_size, num_tokens, embedding_dim)
         # print(self.embedder)
@@ -90,19 +89,17 @@ class PuncRestoreLabeler(Model):
         
         logits2 = torch.squeeze(logits1, dim=-1)
         probs = torch.sigmoid(logits2)
-        th = 0.7
-        probs[torch.where(probs>th)] = 1
-        probs[torch.where(probs<=th)] = 0
+        probs[torch.where(probs>self.th)] = 1
+        probs[torch.where(probs<=self.th)] = 0
         probs = probs*cut
-        
+
         output = {"probs": probs}
-        output['token'] = text['tokens']['token_ids']
+        output['token'] = text['bert']['token_ids']
         output['cut'] = cut
+#         self.f1(probs[:, 1:-1], label[:, 1:-1])
+        
         if label is not None:
             self.f1(probs[:, 1:-1], label[:, 1:-1])
-            output["loss"] = (torch.nn.functional.binary_cross_entropy_with_logits(logits2, label.float(), reduction='none')*cut).sum()/(cut.sum()+1e-9)
-#             output["loss"] = (torch.nn.functional.binary_cross_entropy_with_logits(logits2, label))
-        return output
+            output["loss"] = (torch.nn.functional.binary_cross_entropy_with_logits(logits2, label.float(), reduction='none')*mask).sum()/(mask.sum()+1e-9)
 
-    def get_metrics(self, reset: bool = False) -> Dict[str, float]:
-        return self.f1.get_metric(reset)
+        return output

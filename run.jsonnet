@@ -15,7 +15,7 @@ local bert_model = 'hfl/chinese-roberta-wwm-ext-large';
             }
         },
         "max_tokens": 512,
-        "text_num": 500000
+        "text_num": 500
     },
     "train_data_path": "data/BCUT/train.txt",
     "validation_data_path": "data/BCUT/test.txt",
