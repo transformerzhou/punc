@@ -2,7 +2,7 @@
     "dataset_reader": {
         "type": "data_reader",
         "max_tokens": 512,
-        "text_num": 500,
+        "text_num": 500000,
         "token_indexers": {
             "bert": {
                 "type": "pretrained_transformer",

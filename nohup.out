@@ -1,0 +1,31 @@
+Traceback (most recent call last):
+  File "/usr/local/bin/allennlp", line 33, in <module>
+    sys.exit(load_entry_point('allennlp', 'console_scripts', 'allennlp')())
+  File "/stage/allennlp/allennlp/__main__.py", line 34, in run
+    main(prog="allennlp")
+  File "/stage/allennlp/allennlp/commands/__init__.py", line 119, in main
+    args.func(args)
+  File "/stage/allennlp/allennlp/commands/train.py", line 110, in train_model_from_args
+    train_model_from_file(
+  File "/stage/allennlp/allennlp/commands/train.py", line 170, in train_model_from_file
+    return train_model(
+  File "/stage/allennlp/allennlp/commands/train.py", line 226, in train_model
+    training_util.create_serialization_dir(params, serialization_dir, recover, force)
+  File "/stage/allennlp/allennlp/training/util.py", line 178, in create_serialization_dir
+    shutil.rmtree(serialization_dir)
+  File "/usr/local/lib/python3.8/shutil.py", line 722, in rmtree
+    onerror(os.rmdir, path, sys.exc_info())
+  File "/usr/local/lib/python3.8/shutil.py", line 720, in rmtree
+    os.rmdir(path)
+OSError: [Errno 39] Directory not empty: 'save'
+2021-07-11 14:39:38,427 - INFO - allennlp.common.params - include_in_archive = None
+2021-07-11 14:39:38,495 - INFO - allennlp.common.params - datasets_for_vocab_creation = None
+2021-07-11 14:39:38,495 - INFO - allennlp.common.params - dataset_reader.type = data_reader
+2021-07-11 14:39:38,496 - INFO - allennlp.common.params - dataset_reader.max_instances = None
+2021-07-11 14:39:38,496 - INFO - allennlp.common.params - dataset_reader.manual_distributed_sharding = False
+2021-07-11 14:39:38,496 - INFO - allennlp.common.params - dataset_reader.manual_multiprocess_sharding = False
+2021-07-11 14:39:38,496 - INFO - allennlp.common.params - dataset_reader.tokenizer.type = pretrained_transformer
+2021-07-11 14:39:38,497 - INFO - allennlp.common.params - dataset_reader.tokenizer.model_name = hfl/chinese-roberta-wwm-ext-large
+2021-07-11 14:39:38,497 - INFO - allennlp.common.params - dataset_reader.tokenizer.add_special_tokens = True
+2021-07-11 14:39:38,497 - INFO - allennlp.common.params - dataset_reader.tokenizer.max_length = None
+2021-07-11 14:39:38,497 - INFO - allennlp.common.params - dataset_reader.tokenizer.tokenizer_kwargs = None

@@ -99,7 +99,8 @@ class PuncRestoreLabeler(Model):
         
         if label is not None:
             self.f1(probs[:, 1:-1], label[:, 1:-1])
-            output["loss"] = (torch.nn.functional.binary_cross_entropy_with_logits(logits2, label.float(), reduction='none')*mask).sum()/(mask.sum()+1e-9)
+            #一定是cut来做加权，mask不收敛
+            output["loss"] = (torch.nn.functional.binary_cross_entropy_with_logits(logits2, label.float(), reduction='none')*cut).sum()/(cut.sum()+1e-9)
 
         return output
     def get_metrics(self, reset: bool = False) -> Dict[str, float]:
