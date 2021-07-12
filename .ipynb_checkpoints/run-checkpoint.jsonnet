@@ -1,4 +1,5 @@
 local bert_model = 'hfl/chinese-roberta-wwm-ext-large';
+#local bert_model = 'hfl/chinese-roberta-wwm-ext';
 
 {
     "dataset_reader" : {
@@ -14,7 +15,7 @@ local bert_model = 'hfl/chinese-roberta-wwm-ext-large';
             }
         },
         "max_tokens": 512,
-        "text_num": 500000
+        "text_num": 5000000
     },
     "train_data_path": "data/BCUT/train.txt",
     "validation_data_path": "data/BCUT/test.txt",
@@ -30,8 +31,11 @@ local bert_model = 'hfl/chinese-roberta-wwm-ext-large';
         },
     },
     "data_loader": {
+        "batch_sampler":{
+        "type": "bucket",
         "batch_size": 8,
-        "shuffle": true, 
+        "sorting_keys": ['text']
+        }, 
         "num_workers": 8
     },
     "trainer": {
@@ -41,9 +45,11 @@ local bert_model = 'hfl/chinese-roberta-wwm-ext-large';
         },
         "num_epochs": 100,
         "patience": 20,
-        "validation_metric":"+f1"
+        "validation_metric":"+f1",
+        "cuda_device": 1
     },
-    "distributed": {
-        "cuda_devices": [0, 1]
-    }
+#     "distributed": {
+#        "cuda_devices": [0, 1]
+#    }
+
 }

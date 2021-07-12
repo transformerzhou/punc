@@ -57,7 +57,7 @@ class PuncRestoreReader(DatasetReader):
 
     def _read(self, file_path: str) -> Iterable[Instance]:
         with open(file_path, encoding='utf8') as lines:
-            for line in self.shard_iterable(lines.readlines()[:self.text_num]):
+            for line in self.shard_iterable(lines.readlines()[-self.text_num:]):
                 yield self.text_to_instance(line.strip())
                 
                 

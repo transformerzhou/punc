@@ -2,6 +2,8 @@ import tempfile
 from typing import Dict, Iterable, List, Tuple
 from overrides import overrides
 import torch
+import numpy as np
+import random
 
 from allennlp.common.util import JsonDict
 from allennlp.data import (
@@ -30,6 +32,16 @@ def default_collate_override(batch):
 
 
 setattr(dataloader, 'default_collate', default_collate_override)
+
+def setup_seed(seed):
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    np.random.seed(seed)
+    random.seed(seed)
+    torch.backends.cudnn.deterministic = True
+    print('random_seed: ', seed)
+# 设置随机数种子
+setup_seed(608)
 
 for t in torch._storage_classes:
     if sys.version_info[0] == 2:
@@ -100,7 +112,7 @@ class PuncRestoreLabeler(Model):
         if label is not None:
             self.f1(probs[:, 1:-1], label[:, 1:-1])
             #一定是cut来做加权，mask不收敛
-            output["loss"] = (torch.nn.functional.binary_cross_entropy_with_logits(logits2, label.float(), reduction='none')*cut).sum()/(cut.sum()+1e-9)
+            output["loss"] = (torch.nn.functional.binary_cross_entropy_with_logits(logits2, label.float(), reduction='none')*mask).sum()/(mask.sum())
 
         return output
     def get_metrics(self, reset: bool = False) -> Dict[str, float]:
