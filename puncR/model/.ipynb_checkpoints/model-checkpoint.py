@@ -33,15 +33,15 @@ def default_collate_override(batch):
 
 setattr(dataloader, 'default_collate', default_collate_override)
 
-def setup_seed(seed):
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed_all(seed)
-    np.random.seed(seed)
-    random.seed(seed)
-    torch.backends.cudnn.deterministic = True
-    print('random_seed: ', seed)
-# 设置随机数种子
-setup_seed(608)
+# def setup_seed(seed):
+#     torch.manual_seed(seed)
+#     torch.cuda.manual_seed_all(seed)
+#     np.random.seed(seed)
+#     random.seed(seed)
+#     torch.backends.cudnn.deterministic = True
+#     print('random_seed: ', seed)
+# # 设置随机数种子
+# setup_seed(608)
 
 for t in torch._storage_classes:
     if sys.version_info[0] == 2:
@@ -80,7 +80,7 @@ class F1(Metric):
 @Model.register("tagger")
 class PuncRestoreLabeler(Model):
     def __init__(
-            self, vocab, embedder:TextFieldEmbedder, threshold=0.9
+            self, vocab, embedder:TextFieldEmbedder, threshold=0.5
     ):
         super().__init__(vocab)
         self.embedder = embedder
@@ -92,7 +92,7 @@ class PuncRestoreLabeler(Model):
             self,
             text: TextFieldTensors, label: torch.Tensor = None, cut: torch.Tensor = None,
     ) -> Dict[str, torch.Tensor]:
-        mask = text['bert']['mask']
+        mask = text['tokens']['mask']
         # Shape: (batch_size, num_tokens, embedding_dim)
         # print(self.embedder)
         encoded_text = self.embedder(text)
@@ -103,16 +103,23 @@ class PuncRestoreLabeler(Model):
         probs[torch.where(probs>self.th)] = 1
         probs[torch.where(probs<=self.th)] = 0
         probs = probs*cut
-
+        
+        bz = cut.shape[0]
+        sl = cut.shape[1]
+        
+        for i in range(bz):
+            for j in range(sl-1, -1, -1):
+                if cut[i][j]==1:
+                    cut[i][i] = 0
+                    break
         output = {"probs": probs}
-        output['token'] = text['bert']['token_ids']
+        output['token'] = text['tokens']['token_ids']
         output['cut'] = cut
-#         self.f1(probs[:, 1:-1], label[:, 1:-1])
         
         if label is not None:
-            self.f1(probs[:, 1:-1], label[:, 1:-1])
+            self.f1(probs[:], label[:])
             #一定是cut来做加权，mask不收敛
-            output["loss"] = (torch.nn.functional.binary_cross_entropy_with_logits(logits2, label.float(), reduction='none')*mask).sum()/(mask.sum())
+            output["loss"] = (torch.nn.functional.binary_cross_entropy_with_logits(logits2, label.float(), reduction='none')*cut).sum()/(cut.sum())
 
         return output
     def get_metrics(self, reset: bool = False) -> Dict[str, float]:

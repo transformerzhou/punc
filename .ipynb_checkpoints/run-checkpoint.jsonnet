@@ -9,21 +9,21 @@ local bert_model = 'hfl/chinese-roberta-wwm-ext-large';
             "model_name": bert_model,
         },
         "token_indexers": {
-            "bert": {
+            "tokens": {
                 "type": "pretrained_transformer",
                 "model_name": bert_model,
             }
         },
         "max_tokens": 512,
-        "text_num": 5000000
+        "text_num": 2000
     },
-    "train_data_path": "data/BCUT/train.txt",
-    "validation_data_path": "data/BCUT/test.txt",
+    "train_data_path": ['./data/BCUT/train.txt', './data/translation_zh/translation_zh.dev.txt', './data/wiki_cut/wiki_train.txt'], 
+    "validation_data_path": ["data/BCUT/test.txt"],
     "model": {
         "type": "tagger",
         "embedder": {
             "token_embedders": {
-                "bert": {
+                "tokens": {
                     "type": "pretrained_transformer",
                     "model_name": bert_model
                 }
@@ -46,10 +46,10 @@ local bert_model = 'hfl/chinese-roberta-wwm-ext-large';
         "num_epochs": 100,
         "patience": 20,
         "validation_metric":"+f1",
-        "cuda_device": 1
+#        "cuda_device": 1
     },
-#     "distributed": {
-#        "cuda_devices": [0, 1]
-#    }
+     "distributed": {
+        "cuda_devices": [0, 1]
+    }
 
 }

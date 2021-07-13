@@ -41,6 +41,8 @@ class PuncRestoreReader(DatasetReader):
 
         if self.max_tokens:
             tokens = tokens[: self.max_tokens]
+            cut_list = cut_list[: self.max_tokens]
+            labels = labels[: self.max_tokens]
         text_field = TextField(tokens)
         fields = {"text": text_field}
         cut_field = ArrayField(torch.tensor(cut_list, dtype=torch.long))
@@ -55,10 +57,11 @@ class PuncRestoreReader(DatasetReader):
     def apply_token_indexers(self, instance: Instance) -> None:
         instance.fields["text"].token_indexers = self.token_indexers
 
-    def _read(self, file_path: str) -> Iterable[Instance]:
-        with open(file_path, encoding='utf8') as lines:
-            for line in self.shard_iterable(lines.readlines()[-self.text_num:]):
-                yield self.text_to_instance(line.strip())
+    def _read(self, file_paths) -> Iterable[Instance]:
+        for file_path in file_paths:
+            with open(file_path, encoding='utf8') as lines:
+                for line in self.shard_iterable(lines.readlines()[:self.text_num]):
+                    yield self.text_to_instance(line.strip())
                 
                 
     def text_process(self, text):
@@ -74,9 +77,9 @@ class PuncRestoreReader(DatasetReader):
             if not token:
                 continue
             if token[0].text != '，':
-                cut_list.append(cut_list[-1]+len(token)+1)
-                new_tokens += token+[tokens[-1]]
-                labels += [0]*(len(token)+1)
+                cut_list.append(cut_list[-1]+len(token))
+                new_tokens += token
+                labels += [0]*(len(token))
             else:
                 labels[-1] = 1
                 
